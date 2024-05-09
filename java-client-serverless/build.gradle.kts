@@ -33,7 +33,6 @@ plugins {
     id("de.thetaphi.forbiddenapis") version "3.4"
 }
 
-// GitHub Maven repo doesn't like 1.0.0+20231031-SNAPSHOT
 version = (File(project.rootDir, "config/version-serverless.txt").readText().trim() + "-SNAPSHOT")
 
 signing {
