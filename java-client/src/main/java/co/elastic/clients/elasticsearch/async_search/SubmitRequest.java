@@ -94,7 +94,7 @@ import javax.annotation.Nullable;
  * 10Mb and an attempt to do this results in an error. The maximum allowed size
  * for a stored async search response can be set by changing the
  * <code>search.max_async_search_response_size</code> cluster level setting.
- * 
+ *
  * @see <a href="../doc-files/api-spec.html#async_search.submit.Request">API
  *      specification</a>
  */
@@ -122,6 +122,9 @@ public class SubmitRequest extends RequestBase implements JsonpSerializable {
 
 	@Nullable
 	private final Boolean ccsMinimizeRoundtrips;
+
+	@Nullable
+	private final Boolean ccsIncludeSourceAtFirstTime;
 
 	@Nullable
 	private final FieldCollapse collapse;
@@ -268,6 +271,7 @@ public class SubmitRequest extends RequestBase implements JsonpSerializable {
 		this.analyzer = builder.analyzer;
 		this.batchedReduceSize = builder.batchedReduceSize;
 		this.ccsMinimizeRoundtrips = builder.ccsMinimizeRoundtrips;
+		this.ccsIncludeSourceAtFirstTime = builder.ccsIncludeSourceAtFirstTime;
 		this.collapse = builder.collapse;
 		this.defaultOperator = builder.defaultOperator;
 		this.df = builder.df;
@@ -1187,6 +1191,9 @@ public class SubmitRequest extends RequestBase implements JsonpSerializable {
 		private Boolean ccsMinimizeRoundtrips;
 
 		@Nullable
+		private Boolean ccsIncludeSourceAtFirstTime;
+
+		@Nullable
 		private FieldCollapse collapse;
 
 		@Nullable
@@ -1447,6 +1454,16 @@ public class SubmitRequest extends RequestBase implements JsonpSerializable {
 		 */
 		public final Builder ccsMinimizeRoundtrips(@Nullable Boolean value) {
 			this.ccsMinimizeRoundtrips = value;
+			return this;
+		}
+
+		/**
+		 * 第一次css查询是否带source字段,如果设置false,先查询id列表,再通过id查询source数据
+		 * <p>
+		 * 默认false
+		 */
+		public final Builder ccsIncludeSourceAtFirstTime(@Nullable Boolean value) {
+			this.ccsIncludeSourceAtFirstTime = value;
 			return this;
 		}
 
@@ -2587,6 +2604,9 @@ public class SubmitRequest extends RequestBase implements JsonpSerializable {
 				}
 				if (request.ccsMinimizeRoundtrips != null) {
 					params.put("ccs_minimize_roundtrips", String.valueOf(request.ccsMinimizeRoundtrips));
+				}
+				if (request.ccsIncludeSourceAtFirstTime != null) {
+					params.put("ccs_include_source_at_first_time", String.valueOf(request.ccsIncludeSourceAtFirstTime));
 				}
 				if (request.q != null) {
 					params.put("q", request.q);
